@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Empleado CRUD</title>
+  </head>
+  <body>
+    <h1>Editar empleado</h1>
+    <form method="post" action="#" 
+            th:action="@{/editar/{id}/submit(id=${cuentaDTO.id})}" 
+            th:object="${cuentaDTO}">
+            <input type="text" readonly id="id" th:field="*{id}" /> </label>
+            <label>Nombre:<input type="text" id="nombre" th:field="*{nombre}" /></label><br/>
+            <input type="submit" value="Enviar" />    
+            <a th:href="@{/}">Inicio</a>
+    </form>
+    
+  </body>
+</html>

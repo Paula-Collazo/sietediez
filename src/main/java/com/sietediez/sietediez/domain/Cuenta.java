@@ -1,10 +1,11 @@
 package com.sietediez.sietediez.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -24,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class Cuenta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(length = 34)
     private String IBAN;
 
     @NotEmpty
@@ -32,7 +33,7 @@ public class Cuenta {
 
     private Double saldo = 0.0;
 
-    @OneToMany(mappedBy = "cuenta")
-    private List<Movimiento> movimientos;
+    @OneToMany(mappedBy = "cuenta", cascade = CascadeType.ALL)
+    private List<Movimiento> movimientos = new ArrayList<>();
 }
 
