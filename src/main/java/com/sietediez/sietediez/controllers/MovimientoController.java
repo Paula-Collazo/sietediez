@@ -78,6 +78,20 @@ public class MovimientoController {
             return "newMovimientoGlobalView";
         }
 
+        // Validar límites
+        if ("DEPOSITO".equals(movimientoDTO.getOperacion()) && movimientoDTO.getImporte() > 1000) {
+            model.addAttribute("cuentas", cuentaService.listarCuentas());
+            model.addAttribute("movimientoDTO", movimientoDTO);
+            model.addAttribute("error", "El importe máximo para depósitos es 1000");
+            return "newMovimientoGlobalView";
+        }
+        if ("RETIRO".equals(movimientoDTO.getOperacion()) && movimientoDTO.getImporte() > 300) {
+            model.addAttribute("cuentas", cuentaService.listarCuentas());
+            model.addAttribute("movimientoDTO", movimientoDTO);
+            model.addAttribute("error", "El importe máximo para retiros es 300");
+            return "newMovimientoGlobalView";
+        }
+
         try {
             movimientoService.crearMovimiento(movimientoDTO.getIban(), movimientoDTO);
             redirectAttributes.addFlashAttribute(
@@ -103,6 +117,20 @@ public class MovimientoController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("cuenta", cuentaService.obtenerCuenta(iban));
             model.addAttribute("movimientoDTO", movimientoDTO);
+            return "newMovimientoView";
+        }
+
+        // Validar límites
+        if ("DEPOSITO".equals(movimientoDTO.getOperacion()) && movimientoDTO.getImporte() > 1000) {
+            model.addAttribute("cuenta", cuentaService.obtenerCuenta(iban));
+            model.addAttribute("movimientoDTO", movimientoDTO);
+            model.addAttribute("error", "El importe máximo para depósitos es 1000");
+            return "newMovimientoView";
+        }
+        if ("RETIRO".equals(movimientoDTO.getOperacion()) && movimientoDTO.getImporte() > 300) {
+            model.addAttribute("cuenta", cuentaService.obtenerCuenta(iban));
+            model.addAttribute("movimientoDTO", movimientoDTO);
+            model.addAttribute("error", "El importe máximo para retiros es 300");
             return "newMovimientoView";
         }
 

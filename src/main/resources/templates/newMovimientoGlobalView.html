@@ -8,6 +8,10 @@
   <body>
     <h1>Nuevo movimiento (seleccionar cuenta)</h1>
 
+    <div th:if="${error}" style="color: red; font-weight: bold;">
+      <p th:text="${error}"></p>
+    </div>
+
     <form method="post" action="#" th:action="@{/movimientos/nuevo/submit}" th:object="${movimientoDTO}">
       <label>Cuenta:
         <select th:field="*{iban}">
@@ -15,7 +19,8 @@
         </select>
       </label><br/>
       <label>Importe: <input type="number" step="0.01" th:field="*{importe}" /></label><br/>
-      <input type="submit" value="Añadir" />
+      <button type="submit" name="operacion" value="DEPOSITO">Añadir</button>
+      <button type="submit" name="operacion" value="RETIRO">Retirar</button>
     </form>
 
     <p><a th:href="@{/}">Volver</a></p>

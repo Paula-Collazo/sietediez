@@ -35,11 +35,18 @@ public class MovimientoServiceImpl  implements MovimientoService{
 
         Movimiento movimiento = new Movimiento();
         movimiento.setCuenta(cuenta);
-        movimiento.setImporte(dto.getImporte());
+        
+        // Determinar si es depósito o retiro
+        Double importe = dto.getImporte();
+        if ("RETIRO".equals(dto.getOperacion())) {
+            importe = -importe;
+        }
+        
+        movimiento.setImporte(importe);
         movimiento.setFecha(LocalDateTime.now());
 
         // Actualizar saldo
-        cuenta.setSaldo(cuenta.getSaldo() + dto.getImporte());
+        cuenta.setSaldo(cuenta.getSaldo() + importe);
 
         System.out.println("[MovimientoService] creando movimiento: importe=" + movimiento.getImporte() + " cuenta=" + cuenta.getIBAN());
         repositorioMovimiento.save(movimiento);

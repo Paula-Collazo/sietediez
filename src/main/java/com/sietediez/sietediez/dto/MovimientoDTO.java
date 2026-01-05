@@ -12,6 +12,8 @@ public class MovimientoDTO {
 
     @NotEmpty
     private String iban;
+    
+    private String operacion; // "DEPOSITO" o "RETIRO"
 
 }
 

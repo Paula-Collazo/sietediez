@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.sietediez.sietediez.domain.Cuenta;
 import com.sietediez.sietediez.dto.CuentaDTO;
@@ -96,9 +97,18 @@ public class CuentaController {
     }
 
     @GetMapping("/borrar/{id}")
-    public String showDelete(@PathVariable String id) {
-        cuentaService.eliminarCuenta(id);
-        txtMsg = "Operación realizada con éxito";
+    public String showDelete(@PathVariable String id, RedirectAttributes redirectAttributes) {
+        try {
+            Cuenta cuenta = cuentaService.obtenerCuenta(id);
+            if (cuenta.getSaldo() != 0) {
+                redirectAttributes.addFlashAttribute("msg", "No se puede eliminar una cuenta con saldo diferente de 0");
+                return "redirect:/";
+            }
+            cuentaService.eliminarCuenta(id);
+            redirectAttributes.addFlashAttribute("msg", "Operación realizada con éxito");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("msg", e.getMessage());
+        }
         return "redirect:/";
     }
 }

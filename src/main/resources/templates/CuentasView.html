@@ -10,6 +10,10 @@
 
 <body>
             <h1 th:text="${tituloListado}">Título listado</h1>
+            
+            <div th:if="${msg}" style="color: green; font-weight: bold;">
+                <p th:text="${msg}"></p>
+            </div>
             <table>
                 <thead><tr>
                     <th>IBAN</th>
