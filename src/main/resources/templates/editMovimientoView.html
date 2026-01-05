@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar movimiento</title>
+  </head>
+  <body>
+    <h1>Editar movimiento</h1>
+
+    <form method="post" action="#" th:action="@{/movimientos/{iban}/editar/{id}/submit(iban=${cuenta.IBAN},id=${movimiento.idmov})}" th:object="${movimiento}">
+      <label>ID: <input type="text" readonly th:field="*{idmov}" /></label><br/>
+      <label>Importe: <input type="number" step="0.01" th:field="*{importe}" /></label><br/>
+      <input type="submit" value="Guardar" />
+    </form>
+
+    <p><a th:href="@{/movimientos/{iban}(iban=${cuenta.IBAN})}">Volver a movimientos</a></p>
+  </body>
 </html>

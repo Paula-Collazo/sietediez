@@ -9,7 +9,10 @@ import com.sietediez.sietediez.domain.Cuenta;
 import com.sietediez.sietediez.dto.CuentaDTO;
 import com.sietediez.sietediez.repositories.CuentaRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class CuentaServiceImpl implements CuentaService{
     
     @Autowired 

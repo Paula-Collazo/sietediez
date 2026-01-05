@@ -9,5 +9,5 @@ import com.sietediez.sietediez.domain.Movimiento;
 public interface MovimientoRepository extends JpaRepository<Movimiento, Long>{
     List<Movimiento> findByIdmov(Long idmov);
     
-    List<Movimiento> findByCuentaIban(String iban);
+    List<Movimiento> findByCuentaIBAN(String iban);
 }

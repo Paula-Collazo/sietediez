@@ -14,16 +14,27 @@
                 <thead><tr>
                     <th>IBAN</th>
                     <th>Nombre</th>
-                    <th>Saldo</th></tr>
+                    <th>Saldo</th>
+                    <th>Acciones</th></tr>
                 </thead>
                 <tbody>
                     <tr th:each="cuenta : ${listaCuentas}">
-                        <td th:text="${cuenta.id}">Id</td>
-                        <td><a th:href="@{/{id}(id=${cuenta.id})}" th:text="${cuenta.nombre}">nombre</a></td>
-                        <td th:text="${cuenta.saldo}">salario</td>
+                        <td th:text="${cuenta.IBAN}">IBAN</td>
+                        <td><a th:href="@{/{id}(id=${cuenta.IBAN})}" th:text="${cuenta.nombre}">nombre</a></td>
+                        <td th:text="${cuenta.saldo}">saldo</td>
+                        <td><a th:href="@{/movimientos/{iban}(iban=${cuenta.IBAN})}">Movimientos</a></td>
                     </tr>
                 </tbody>
             </table>
+            <form method="get" th:action="@{/nuevo}">
+                <label>Nueva Cuenta:</label>
+                <button type="submit">Añadir</button>
+            </form>
+            <form method="get" th:action="@{/movimientos/nuevo}">
+                <label>Nuevo movimiento global:</label>
+                <button type="submit">Añadir</button>
+            </form>
+            <br>
             <a th:href="@{/}">Inicio</a><br />
 </body>
 

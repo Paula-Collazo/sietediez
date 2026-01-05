@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Movimientos</title>
+  </head>
+  <body>
+    <h1>Movimientos de la cuenta</h1>
+
+    <p>Cuenta: <span th:text="${cuenta.IBAN}">IBAN</span> - <span th:text="${cuenta.nombre}">Nombre</span></p>
+    <p>Saldo: <span th:text="${cuenta.saldo}">Saldo</span></p>
+    <div th:if="${msg}">
+      <strong th:text="${msg}"></strong>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Importe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="mov : ${listaMovimientos}">
+          <td th:text="${mov.idmov}">id</td>
+          <td th:text="${#temporals.format(mov.fecha, 'dd/MM/yyyy HH:mm:ss')}">fecha</td>
+          <td th:text="${mov.importe}">importe</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form method="get" th:action="@{/movimientos/{iban}/nuevo(iban=${cuenta.IBAN})}">
+      <button type="submit">Nuevo movimiento</button>
+    </form>
+
+    <p>
+      <a th:href="@{/{id}(id=${cuenta.IBAN})}">Volver a cuenta</a>
+    </p>
+  </body>
+</html>

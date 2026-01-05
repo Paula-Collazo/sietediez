@@ -24,18 +24,19 @@ public class CuentaController {
 
     @GetMapping({ "/", "/list" })
     public String showList(Model model) {
+        model.addAttribute("tituloListado", "Listado de cuentas");
         model.addAttribute("listaCuentas", cuentaService.listarCuentas());
         if (txtMsg != null) {
             model.addAttribute("msg", txtMsg);
             txtMsg = null;
         }
-        return "listView";
+        return "CuentasView";
     }
 
     @GetMapping("/{id}")
     public String showElement(@PathVariable String id, Model model) {
         try {
-            model.addAttribute("empleado", cuentaService.obtenerCuenta(id));
+            model.addAttribute("cuenta", cuentaService.obtenerCuenta(id));
             return "listOneView";
         } catch (RuntimeException e) {
             txtMsg = e.getMessage();
@@ -45,16 +46,16 @@ public class CuentaController {
 
     @GetMapping("/nuevo")
     public String showNew(Model model) {
-        model.addAttribute("cuentaDTO", new Cuenta());
+        model.addAttribute("cuentaDTO", new CuentaDTO());
         return "newCuentaView";
     }
 
     @PostMapping("/nuevo/submit")
     public String showNewSubmit(@Valid CuentaDTO CuentaDTO,
-            BindingResult bindingResult) {
+            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            txtMsg = "Error en formulario";
-            return "redirect:/";
+            model.addAttribute("cuentaDTO", CuentaDTO);
+            return "newCuentaView";
         }
         try {
             cuentaService.crearCuenta(CuentaDTO);
@@ -79,11 +80,11 @@ public class CuentaController {
 
     @PostMapping("/editar/{id}/submit")
     public String showEditSubmit(@PathVariable String id, @Valid CuentaDTO CuentaDTO,
-            BindingResult bindingResult) {
+            BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            txtMsg = "Error en formulario";
-            return "redirect:/";
+            model.addAttribute("cuentaDTO", CuentaDTO);
+            return "editCuentaView";
         }
         try {
             cuentaService.actualizarCuenta(id, CuentaDTO);

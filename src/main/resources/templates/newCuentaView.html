@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Empleado CRUD</title>
+    <title>Cuenta CRUD</title>
   </head>
   <body>
-    <h1>Nuevo empleado</h1>
+    <h1>Nueva cuenta</h1>
     <form method="post" action="#" th:action="@{/nuevo/submit}"
-            th:object="${empleadoDTO}">
-            <input type="hidden" id="id" th:field="*{id}" />
+            th:object="${cuentaDTO}">
+            <label>IBAN:<input type="text" id="iban" th:field="*{IBAN}" /></label><br/>
             <label>Nombre:<input type="text" id="nombre" th:field="*{nombre}" /></label><br/>
-            <input type="submit" value="Enviar" />
+            <input type="submit" value="Crear" />
     </form>
     <br/>
     <a th:href="@{/}">Inicio</a><br/>

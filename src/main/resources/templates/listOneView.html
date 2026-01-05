@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cuenta</title>
+  </head>
+  <body>
+    <h1>Cuenta</h1>
+    <p>IBAN: <span th:text="${cuenta.IBAN}">IBAN</span></p>
+    <p>Nombre: <span th:text="${cuenta.nombre}">nombre</span></p>
+    <p>Saldo: <span th:text="${cuenta.saldo}">saldo</span></p>
+
+    <p>
+      <a th:href="@{/editar/{id}(id=${cuenta.IBAN})}">Editar</a> |
+      <a th:href="@{/borrar/{id}(id=${cuenta.IBAN})}">Borrar</a> |
+      <a th:href="@{/movimientos/{iban}(iban=${cuenta.IBAN})}">Movimientos</a> |
+      <a th:href="@{/}">Volver</a>
+    </p>
+  </body>
+</html>

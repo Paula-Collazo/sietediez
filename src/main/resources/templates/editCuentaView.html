@@ -3,16 +3,16 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Empleado CRUD</title>
+    <title>Cuenta CRUD</title>
   </head>
   <body>
-    <h1>Editar empleado</h1>
+    <h1>Editar cuenta</h1>
     <form method="post" action="#" 
-            th:action="@{/editar/{id}/submit(id=${cuentaDTO.id})}" 
+            th:action="@{/editar/{id}/submit(id=${cuentaDTO.IBAN})}" 
             th:object="${cuentaDTO}">
-            <input type="text" readonly id="id" th:field="*{id}" /> </label>
+            <label>IBAN:<input type="text" readonly id="iban" th:field="*{IBAN}" /></label><br/>
             <label>Nombre:<input type="text" id="nombre" th:field="*{nombre}" /></label><br/>
-            <input type="submit" value="Enviar" />    
+            <input type="submit" value="Guardar" />    
             <a th:href="@{/}">Inicio</a>
     </form>
     
